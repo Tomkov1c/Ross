@@ -3,6 +3,7 @@ use clap::Parser;
 
 mod commands;
 mod cli;
+mod config;
 
 fn main() {
     cli_command_match();
@@ -23,6 +24,6 @@ fn cli_command_match() {
         Some(Commands::Init {}) => commands::init::run(),
 
 
-        None => eprintln!("No subcommand found. Use --help for usage."),
+        None => eprintln!("No subcommand/file found. Use --help for usage."),
     }
 }
