@@ -20,6 +20,9 @@ fn cli_command_match() {
 
     match cli.command {
         Some(Commands::Bob {}) => commands::bob::run(),
-        None => eprintln!("No files or command provided. Use --help for usage."),
+        Some(Commands::Init {}) => commands::init::run(),
+
+
+        None => eprintln!("No subcommand found. Use --help for usage."),
     }
 }

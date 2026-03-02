@@ -16,6 +16,8 @@ pub struct Cli {
 #[derive(Subcommand)]
 pub enum Commands {
 
-    #[command(about = "This is Bob's description")]
+    #[command(about = "This is Bob's description", hide = true)]
     Bob { },
+    #[command(about = "Initialize empty config directory for Ross")]
+    Init { },
 }
