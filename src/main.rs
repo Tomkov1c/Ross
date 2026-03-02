@@ -1,8 +1,8 @@
+use cli::{Cli, Commands};
+use clap::{Parser};
+
 mod commands;
 mod cli;
-use cli::{Cli, Commands};
-
-use clap::{Parser};
 
 
 fn main() {
@@ -10,6 +10,9 @@ fn main() {
 }
 
 
+
+
+// Private
 fn cli_command_match() {
     let cli = Cli::parse();
     match cli.command {
