@@ -6,8 +6,12 @@ use clap::{Parser};
 
 
 fn main() {
-    let cli = Cli::parse();
+    cli_command_match();
+}
 
+
+fn cli_command_match() {
+    let cli = Cli::parse();
     match cli.command {
         Commands::Bob { } => commands::bob::run(),
     }
