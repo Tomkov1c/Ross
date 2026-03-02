@@ -13,5 +13,7 @@ pub struct Cli {
 
 #[derive(Subcommand)]
 pub enum Commands {
+
+    #[command(about = "This is Bob's description")]
     Bob { },
 }
