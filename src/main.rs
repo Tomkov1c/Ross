@@ -9,7 +9,6 @@ fn main() {
     let cli = Cli::parse();
 
     match cli.command {
-        Commands::Hello { name } => commands::hello::run(name),
-        Commands::Add { a, b }   => commands::add::run(a, b),
+        Commands::Bob { } => commands::bob::run(),
     }
 }

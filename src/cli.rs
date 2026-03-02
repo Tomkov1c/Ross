@@ -13,6 +13,5 @@ pub struct Cli {
 
 #[derive(Subcommand)]
 pub enum Commands {
-    Hello { name: Option<String>, },
-    Add { a: f64, b: f64 },
+    Bob { },
 }
