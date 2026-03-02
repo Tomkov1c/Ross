@@ -1,21 +1,25 @@
 use cli::{Cli, Commands};
-use clap::{Parser};
+use clap::Parser;
 
 mod commands;
 mod cli;
-
 
 fn main() {
     cli_command_match();
 }
 
-
-
-
-// Private
 fn cli_command_match() {
     let cli = Cli::parse();
+
+    if !cli.files.is_empty() {
+        for file in &cli.files {
+            println!("Processing file: {}", file);
+        }
+        return;
+    }
+
     match cli.command {
-        Commands::Bob { } => commands::bob::run(),
+        Some(Commands::Bob {}) => commands::bob::run(),
+        None => eprintln!("No files or command provided. Use --help for usage."),
     }
 }

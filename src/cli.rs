@@ -7,8 +7,10 @@ pub struct Cli {
     #[arg(short = 'v', long, action = clap::ArgAction::Version, help = "Print version information")]
     pub version: Option<bool>,
 
+    pub files: Vec<String>,
+
     #[command(subcommand)]
-    pub command: Commands,
+    pub command: Option<Commands>,
 }
 
 #[derive(Subcommand)]
