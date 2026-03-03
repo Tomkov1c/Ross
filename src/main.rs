@@ -23,7 +23,6 @@ fn cli_command_match() {
         Some(Commands::Bob {}) => commands::bob::run(),
         Some(Commands::Init {}) => commands::init::run(),
 
-
-        None => eprintln!("No subcommand/file found. Use --help for usage."),
+        None => { Cli::parse_from(["", "--help"]); }
     }
 }
