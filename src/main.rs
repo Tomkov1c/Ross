@@ -1,9 +1,8 @@
-use cli::{Cli, Commands};
-use clap::Parser;
-
 mod commands;
-mod cli;
-mod config;
+mod handlers;
+
+use handlers::cli_handler::{Cli, Commands};
+use clap::Parser;
 
 fn main() {
     cli_command_match();
