@@ -1,7 +1,9 @@
 mod commands;
 mod handlers;
 
-use handlers::cli_handler::{Cli, Commands};
+use crate::handlers::cli_handler::{Cli, Commands};
+use crate::commands::config::ConfigCommands;
+
 use clap::Parser;
 
 fn main() {
@@ -21,6 +23,9 @@ fn cli_command_match() {
     match cli.command {
         Some(Commands::Bob {}) => commands::bob::run(),
         Some(Commands::Init {}) => commands::init::run(),
+        Some(Commands::Config { subcommand }) => match subcommand {
+            ConfigCommands::Path {} => commands::config::path::run(),
+        },
 
         None => { Cli::parse_from(["", "--help"]); }
     }
