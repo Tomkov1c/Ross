@@ -24,7 +24,8 @@ fn cli_command_match() {
         Some(Commands::Bob {}) => commands::bob::run(),
         Some(Commands::Init {}) => commands::init::run(),
         Some(Commands::Config { subcommand }) => match subcommand {
-            ConfigCommands::Path {} => commands::config::path::run(),
+            Some(ConfigCommands::Path {}) => commands::config::path::run(),
+            None => commands::config::default(),
         },
 
         None => { Cli::parse_from(["", "--help"]); }

@@ -27,6 +27,6 @@ pub enum Commands {
     #[command(about = "Manage Ross configuration")]
     Config {
         #[command(subcommand)]
-        subcommand: ConfigCommands,
+        subcommand: Option<ConfigCommands>,
     },
 }

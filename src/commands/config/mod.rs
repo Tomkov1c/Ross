@@ -1,7 +1,10 @@
 pub mod path;
 
-
 use clap::Subcommand;
+
+pub fn default() {
+
+}
 
 #[derive(Subcommand)]
 pub enum ConfigCommands {
