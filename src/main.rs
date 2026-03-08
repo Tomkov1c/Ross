@@ -7,10 +7,10 @@ use crate::commands::config::ConfigCommands;
 use clap::Parser;
 
 fn main() {
-    cli_command_match();
+    cli_match();
 }
 
-fn cli_command_match() {
+fn cli_match() {
     let cli = Cli::parse();
 
     if !cli.files.is_empty() {
