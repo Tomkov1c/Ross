@@ -1,9 +1,11 @@
-use std::env;
-use std::fs;
+use crate::handlers::local_config_handler;
 
 pub fn run() {
-    let current_dir = env::current_dir().expect("Failed to get current directory");
-    let new_dir = current_dir.join(".ross");
-    fs::create_dir(&new_dir).expect("Failed to create directory");
-    println!("Created Ross config directory at: {}", new_dir.display());
+    let success = local_config_handler::create_local_config_at_env();
+
+    if success == None {
+        println!("Could not get current directory")
+    }else {
+        println!("Initialized empty Ross project config directory at: {}", success.unwrap().parent().unwrap().display().to_string());
+    }
 }
