@@ -5,6 +5,18 @@ use serde::de::DeserializeOwned;
 use std::fs;
 use std::path::Path;
 
+pub enum SupportedLanguages {
+    Java,
+}
+
+impl SupportedLanguages {
+    pub fn as_str(&self) -> &str {
+        match self {
+            SupportedLanguages::Java => "java"
+        }
+    }
+}
+
 #[derive(Debug, Deserialize)]
 pub struct BaseSettings {
     #[serde(rename = "$schemeVersion")]
