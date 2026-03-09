@@ -1,6 +1,6 @@
 use crate::handlers::local_config_handler;
 
-pub fn main() {
+pub fn main(gitless: bool, gitignore: bool) {
     let success = local_config_handler::create_local_config_at_env();
 
     if success == None {

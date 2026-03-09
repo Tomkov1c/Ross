@@ -23,7 +23,7 @@ fn cli_match() {
 
     match cli.command {
         Some(Commands::Bob {}) => commands::bob::run(),
-        Some(Commands::Init {}) => commands::init::main(),
+        Some(Commands::Init { gitless, gitignore }) => commands::init::main(gitless, gitignore),
         Some(Commands::Config { subcommand }) => match subcommand {
             Some(ConfigCommands::Path {}) => commands::config::path::run(),
             None => commands::config::default(),
