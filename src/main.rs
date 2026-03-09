@@ -1,5 +1,6 @@
 mod commands;
 mod handlers;
+mod languages;
 
 use crate::handlers::cli_handler::{Cli, Commands};
 use crate::commands::config::ConfigCommands;
