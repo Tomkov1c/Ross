@@ -21,7 +21,7 @@ pub fn create_local_config_at_env() -> Option<PathBuf> {
         fs::create_dir(&ross_dir).expect("");
 
         #[cfg(target_os = "windows")]
-        set_dir_as_hidden(&new_dir);
+        set_dir_as_hidden(&ross_dir);
 
         Some(ross_dir)
     }else {
