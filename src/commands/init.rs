@@ -1,6 +1,6 @@
 use crate::handlers::local_config_handler;
 
-pub fn run() {
+pub fn main() {
     let success = local_config_handler::create_local_config_at_env();
 
     if success == None {
