@@ -1,16 +1,19 @@
+use crate::CURRENT_DIR;
+
+#[cfg(target_os = "windows")]
+use crate::handlers::dir_handler::set_dir_as_hidden_on_windows;
+
 use std::fs;
 use std::path::PathBuf;
 
-use crate::CURRENT_DIR;
-
-pub fn search_dir_for_local_config(path: &std::path::Path) -> bool {
+pub fn search_dir_for_local_config(path: PathBuf) -> bool {
     let ross_dir = path.join(".ross");
 
     ross_dir.exists()
 }
 
 pub fn search_env_dir_for_local_config() -> bool {
-    search_dir_for_local_config(&*CURRENT_DIR)
+    search_dir_for_local_config(CURRENT_DIR.clone())
 }
 
 pub fn create_local_config_at_env() -> Option<PathBuf> {
@@ -19,7 +22,7 @@ pub fn create_local_config_at_env() -> Option<PathBuf> {
         fs::create_dir(&ross_dir).expect("");
 
         #[cfg(target_os = "windows")]
-        set_dir_as_hidden(&ross_dir);
+        set_dir_as_hidden_on_windows(&ross_dir);
 
         Some(ross_dir)
     }else {
@@ -27,19 +30,10 @@ pub fn create_local_config_at_env() -> Option<PathBuf> {
     }
 }
 
-#[cfg(target_os = "windows")]
-fn set_dir_as_hidden(path: &std::path::Path) {
-    use std::os::windows::ffi::OsStrExt;
-
-    let wide: Vec<u16> = path.as_os_str().encode_wide().chain(std::iter::once(0)).collect();
-
-    unsafe {
-        let attrs = windows_sys::Win32::Storage::FileSystem::GetFileAttributesW(wide.as_ptr());
-        if attrs != u32::MAX {
-            windows_sys::Win32::Storage::FileSystem::SetFileAttributesW(
-                wide.as_ptr(),
-                attrs | windows_sys::Win32::Storage::FileSystem::FILE_ATTRIBUTE_HIDDEN,
-            );
-        }
+pub fn search_through_parent_for_local_config(dir: PathBuf) -> Option<PathBuf> {
+    if search_dir_for_local_config(dir.clone()) {
+        Some(dir)
+    } else {
+        search_through_parent_for_local_config(dir.parent()?.to_path_buf())
     }
 }
