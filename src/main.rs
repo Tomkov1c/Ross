@@ -31,8 +31,9 @@ fn cli_match() {
         Some(Commands::Bob {}) => commands::bob::run(),
         Some(Commands::Init { gitless, gitignore }) => commands::init::main(gitless, gitignore),
         Some(Commands::Config { subcommand }) => match subcommand {
-            Some(ConfigCommands::Path {}) => commands::config::path::run(),
-            None => commands::config::default(),
+            Some(ConfigCommands::Global {}) => commands::config::global::run(),
+            Some(ConfigCommands::Local {}) => commands::config::local::run(),
+            None => { Cli::parse_from(["", "--help"]); },
         },
 
         None => { Cli::parse_from(["", "--help"]); }

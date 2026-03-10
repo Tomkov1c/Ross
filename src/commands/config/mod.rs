@@ -1,13 +1,15 @@
-pub mod path;
+pub mod global;
+pub mod local;
 
 use clap::Subcommand;
 
-pub fn default() {
-
-}
-
 #[derive(Subcommand)]
 pub enum ConfigCommands {
-    #[command(about = "Print the path to the config file")]
-    Path {},
+
+
+    #[command(about = "Change settings for your project config")]
+    Local {},
+
+    #[command(about = "Change settings for your machine's config")]
+    Global {},
 }
