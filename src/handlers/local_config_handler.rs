@@ -16,9 +16,9 @@ pub fn search_env_dir_for_local_config() -> bool {
     search_dir_for_local_config(CURRENT_DIR.clone())
 }
 
-pub fn create_local_config_at_env() -> Option<PathBuf> {
-    if !search_env_dir_for_local_config() {
-        let ross_dir = CURRENT_DIR.join(".ross");
+pub fn create_local_config(dir: PathBuf) -> Option<PathBuf> {
+    if !search_dir_for_local_config(dir.clone()) {
+        let ross_dir = dir.join(".ross");
         fs::create_dir(&ross_dir).expect("");
 
         #[cfg(target_os = "windows")]
@@ -30,10 +30,28 @@ pub fn create_local_config_at_env() -> Option<PathBuf> {
     }
 }
 
+pub fn create_local_config_at_env() -> Option<PathBuf> {
+    create_local_config(CURRENT_DIR.clone())
+}
+
 pub fn search_through_parent_for_local_config(dir: PathBuf) -> Option<PathBuf> {
     if search_dir_for_local_config(dir.clone()) {
         Some(dir)
     } else {
         search_through_parent_for_local_config(dir.parent()?.to_path_buf())
+    }
+}
+
+pub fn add_dir_to_config_dir(dir: PathBuf, name: String) -> bool {
+    if search_dir_for_local_config(dir.clone()) {
+        let named_dir = dir.join(".ross").join(&name);
+        if named_dir.exists() {
+            false
+        } else {
+            fs::create_dir(&named_dir).expect("Failed to create dir in .ross");
+            true
+        }
+    } else {
+        false
     }
 }
