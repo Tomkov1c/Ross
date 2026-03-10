@@ -21,12 +21,12 @@ pub enum Commands {
     #[command(about = "This is Bob's description", hide = true)]
     Bob { },
 
-    #[command(about = "Initialize empty project config directory for Ross. Adds cached files to .gitignore")]
+    #[command(about = "Initialize empty project config directory for Ross. Add cached ross files to .gitignore")]
     Init {
-        #[arg(short = 'l', long, help = "Do not touch .gitignore at all", conflicts_with = "gitignore")]
+        #[arg(short = 'g', long, help = "Do not touch .gitignore at all", conflicts_with = "gitignore")]
         gitless: bool,
 
-        #[arg(short = 'i', long, help = "Add the whole directory to .gitignore", conflicts_with = "gitless")]
+        #[arg(short = 'i', long, help = "Add the whole project config directory to .gitignore", conflicts_with = "gitless")]
         gitignore: bool,
     },
 
