@@ -5,7 +5,13 @@ mod languages;
 use crate::handlers::cli_handler::{Cli, Commands};
 use crate::commands::config::ConfigCommands;
 
+use std::env;
+use std::path::PathBuf;
+use std::sync::LazyLock;
+
 use clap::Parser;
+
+pub static CURRENT_DIR: LazyLock<PathBuf> = LazyLock::new(|| { env::current_dir().expect("Failed to get current directory")});
 
 fn main() {
     cli_match();

@@ -1,6 +1,7 @@
-use std::env;
 use std::fs;
 use std::path::PathBuf;
+
+use crate::CURRENT_DIR;
 
 pub fn search_dir_for_local_config(path: &std::path::Path) -> bool {
     let ross_dir = path.join(".ross");
@@ -9,15 +10,12 @@ pub fn search_dir_for_local_config(path: &std::path::Path) -> bool {
 }
 
 pub fn search_env_dir_for_local_config() -> bool {
-    let current_dir = env::current_dir().expect("");
-
-    search_dir_for_local_config(&current_dir)
+    search_dir_for_local_config(&*CURRENT_DIR)
 }
 
 pub fn create_local_config_at_env() -> Option<PathBuf> {
     if !search_env_dir_for_local_config() {
-        let current_dir = env::current_dir().expect("");
-        let ross_dir = current_dir.join(".ross");
+        let ross_dir = CURRENT_DIR.join(".ross");
         fs::create_dir(&ross_dir).expect("");
 
         #[cfg(target_os = "windows")]
