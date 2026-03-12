@@ -84,10 +84,8 @@ jobs:
           echo "PKG_NAME=$(grep '^name' Cargo.toml | head -1 | sed 's/.*= *"\(.*\)"/\1/')" >> $GITHUB_ENV
           echo "PKG_VERSION=$(grep '^version' Cargo.toml | head -1 | sed 's/.*= *"\(.*\)"/\1/')" >> $GITHUB_ENV
 
-      - name: Extract changelog for this version
-        run: |
-          awk "/^## \[v?${PKG_VERSION}\]/{found=1; next} found && /^## \[/{exit} found{print}" \
-            .github/CHANGELOG.md > release_notes.md
+      - name: Read changelog
+        run: cp .github/CHANGELOG.md release_notes.md
 
       - uses: actions/download-artifact@v4
         with:
