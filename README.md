@@ -1,6 +1,6 @@
 <h1 align="center"> Ross </h1> <br>
 <p align="center">
-    <img alt="GitPoint" title="GitPoint" src=".github/Logo V2.svg" width="150">
+    <img alt="GitPoint" title="GitPoint" src=".github/Logo V2.svg" width="250">
 </p>
 
 <p align="center">
@@ -20,11 +20,11 @@ cargo run -- [args]
 Replace `[args]` with commands
 
 ## Release build
+Build a release version
 ```
 cargo build --release
 ```
-Build a release version
+and add it to `$PATH`.
 ```
 cargo install --path . --force
 ```
-and add it to `$PATH`.
