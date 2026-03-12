@@ -85,7 +85,7 @@ jobs:
           echo "PKG_VERSION=$(grep '^version' Cargo.toml | head -1 | sed 's/.*= *"\(.*\)"/\1/')" >> $GITHUB_ENV
 
       - name: Read changelog
-        run: cp .github/CHANGELOG.md release_notes.md
+        run: cp .github/changelog.md release_notes.md
 
       - uses: actions/download-artifact@v4
         with:
@@ -95,6 +95,6 @@ jobs:
       - uses: softprops/action-gh-release@v1
         with:
           tag_name: v${{ env.PKG_VERSION }}
-          name: ${{ env.PKG_NAME }} v${{ env.PKG_VERSION }}
+          name: Ross v${{ env.PKG_VERSION }}
           body_path: release_notes.md
           files: artifacts/*
