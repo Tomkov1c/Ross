@@ -9,6 +9,22 @@
 <p align="center">
   <strong>This project is in early development!</strong>
 </p>
-<p align="center">
-    <img alt="Screenshot" title="Screenshot" src=".github/screenshot.png">
-</p>
+
+</br>
+
+# How to compile
+## Dev run
+```
+cargo run -- [args]
+```
+Replace `[args]` with commands
+
+## Release build
+```
+cargo build --release
+```
+Build a release version
+```
+cargo install --path . --force
+```
+and add it to `$PATH`.
