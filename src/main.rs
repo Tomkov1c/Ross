@@ -2,7 +2,10 @@ mod commands;
 mod handlers;
 mod languages;
 
-use crate::handlers::cli_handler::{Cli, Commands};
+use crate::commands::config::global::GlobalCommands;
+use crate::handlers::cli_handler::Cli;
+
+use crate::commands::MainCommands;
 use crate::commands::config::ConfigCommands;
 
 use std::env;
@@ -28,12 +31,21 @@ fn cli_match() {
     }
 
     match cli.command {
-        Some(Commands::Bob {}) => commands::bob::run(),
-        Some(Commands::Init { gitless, gitignore }) => commands::init::main(gitless, gitignore),
-        Some(Commands::Config { subcommand }) => match subcommand {
-            Some(ConfigCommands::Global {}) => commands::config::global::run(),
-            Some(ConfigCommands::Local {}) => commands::config::local::run(),
-            None => { Cli::parse_from(["", "--help"]); },
+        Some(MainCommands::Bob {}) => commands::bob::run(),
+
+        Some(MainCommands::Init { gitless, gitignore }) => commands::init::main(gitless, gitignore),
+
+        Some(MainCommands::Config { subcommand }) => match subcommand {
+            Some(ConfigCommands::Global { subcommand }) => match subcommand {
+                Some(GlobalCommands::Path {}) => commands::config::global::path::run(),
+                None => { Cli::parse_from(["", "config", "global", "--help"]); },
+            },
+
+            Some(ConfigCommands::Local { subcommand }) => match subcommand {
+                None => { Cli::parse_from(["", "config", "local", "--help"]); },
+            },
+
+            None => { Cli::parse_from(["", "config", "--help"]); },
         },
 
         None => { Cli::parse_from(["", "--help"]); }
