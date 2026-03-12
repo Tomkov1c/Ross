@@ -1,6 +1,7 @@
-use clap::{Parser, Subcommand};
+use clap::Parser;
 
-use crate::commands::config::ConfigCommands;
+use crate::commands::MainCommands;
+
 
 #[derive(Parser)]
 #[command(name = "Ross", about = "Code formatter", version, disable_version_flag = true)]
@@ -12,27 +13,5 @@ pub struct Cli {
     pub files: Vec<String>,
 
     #[command(subcommand)]
-    pub command: Option<Commands>,
-}
-
-#[derive(Subcommand)]
-pub enum Commands {
-
-    #[command(about = "This is Bob's description", hide = true)]
-    Bob { },
-
-    #[command(about = "Initialize empty project config directory for Ross. Add cached ross files to .gitignore")]
-    Init {
-        #[arg(short = 'g', long, help = "Do not touch .gitignore at all", conflicts_with = "gitignore")]
-        gitless: bool,
-
-        #[arg(short = 'i', long, help = "Add the whole project config directory to .gitignore", conflicts_with = "gitless")]
-        gitignore: bool,
-    },
-
-    #[command(about = "Manage Ross configuration")]
-    Config {
-        #[command(subcommand)]
-        subcommand: Option<ConfigCommands>,
-    },
+    pub command: Option<MainCommands>,
 }
