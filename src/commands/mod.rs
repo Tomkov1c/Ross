@@ -3,7 +3,7 @@ pub mod init;
 pub mod config;
 pub mod file;
 
-use clap::Subcommand;
+use clap::{Parser, Subcommand};
 
 use crate::commands::{config::ConfigCommands, file::FileCommands};
 
@@ -14,15 +14,6 @@ pub enum MainCommands {
     #[command(about = "This is Bob's description", hide = true)]
     Bob { },
 
-    #[command(about = "Run code formatting on the attached file(s)")]
-    File {
-            #[arg(required = true)]
-            files: Vec<String>,
-
-            #[command(subcommand)]
-            subcommand: Option<FileCommands>,
-    },
-
     #[command(about = "Initialize empty project config directory for Ross. Add cached ross files to .gitignore")]
     Init {
         #[arg(short = 'g', long, help = "Do not touch .gitignore at all", conflicts_with = "gitignore")]
@@ -32,9 +23,36 @@ pub enum MainCommands {
         gitignore: bool,
     },
 
+    #[command(about = "Run code formatting on the attached file(s)")]
+    File {
+            #[arg(required = true)]
+            files: Vec<String>,
+
+            #[command(subcommand)]
+            subcommand: Option<FileCommands>,
+    },
+
     #[command(about = "Manage Ross configuration")]
     Config {
         #[command(subcommand)]
         subcommand: Option<ConfigCommands>,
     },
+}
+
+
+pub fn match_command(command: Option<MainCommands>) {
+    match command {
+        Some(MainCommands::Bob {}) => bob::run(),
+        Some(MainCommands::Init { gitless, gitignore }) => init::main(gitless, gitignore),
+
+
+        // Branched
+        Some(MainCommands::Config { subcommand }) => config::match_command(subcommand),
+
+        Some(MainCommands::File { files, subcommand }) => file::match_command(&files, subcommand),
+        //
+
+
+        None => { crate::handlers::cli_handler::Cli::parse_from(["", "--help"]); }
+    }
 }

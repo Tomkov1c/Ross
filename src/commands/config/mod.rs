@@ -1,7 +1,7 @@
 pub mod global;
 pub mod local;
 
-use clap::Subcommand;
+use clap::{Parser, Subcommand};
 
 #[derive(Subcommand)]
 pub enum ConfigCommands {
@@ -17,4 +17,13 @@ pub enum ConfigCommands {
         #[command(subcommand)]
         subcommand: Option<global::GlobalCommands>,
     },
+}
+
+pub fn match_command(subcommand: Option<ConfigCommands>) {
+    match subcommand {
+        Some(ConfigCommands::Global { subcommand }) => global::match_command(subcommand),
+        Some(ConfigCommands::Local { subcommand })  => local::match_command(subcommand),
+
+        None => { crate::handlers::cli_handler::Cli::parse_from(["", "config", "--help"]); }
+    }
 }
