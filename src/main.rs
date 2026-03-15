@@ -3,6 +3,7 @@ mod handlers;
 mod languages;
 
 use crate::commands::config::global::GlobalCommands;
+use crate::commands::file::FileCommands;
 use crate::handlers::cli_handler::Cli;
 
 use crate::commands::MainCommands;
@@ -23,13 +24,6 @@ fn main() {
 fn cli_match() {
     let cli = Cli::parse();
 
-    if !cli.files.is_empty() {
-        for file in &cli.files {
-            println!("Processing file: {}", file);
-        }
-        return;
-    }
-
     match cli.command {
         Some(MainCommands::Bob {}) => commands::bob::run(),
 
@@ -46,6 +40,13 @@ fn cli_match() {
             },
 
             None => { Cli::parse_from(["", "config", "--help"]); },
+        },
+
+        Some(MainCommands::File { files, subcommand}) => match subcommand {
+            Some(FileCommands::Scheme { }) => {  },
+
+            None => {}
+
         },
 
         None => { Cli::parse_from(["", "--help"]); }
