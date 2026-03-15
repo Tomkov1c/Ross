@@ -7,7 +7,7 @@ pub fn create_or_get_config_dir() -> PathBuf {
 }
 
 pub fn get_config_file_path(file_name: String) -> PathBuf {
-    create_or_get_config_dir().join(file_name)
+    create_or_get_config_dir().join(file_name + ".json")
 }
 
 pub fn create_or_get_schemes_dir() -> PathBuf {
