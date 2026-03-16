@@ -11,8 +11,11 @@ use crate::commands::{config::ConfigCommands, file::FileCommands};
 #[derive(Subcommand)]
 pub enum MainCommands {
 
-    #[command(about = "This is Bob's description", hide = true)]
-    Bob { },
+    #[command(about = "Output a Bob Ross quote", hide = true)]
+    Bob {
+        #[arg(short, long, help = "Listen to the quote immediately")]
+        listen: bool,
+    },
 
     #[command(about = "Initialize empty project config directory for Ross. Add cached ross files to .gitignore")]
     Init {
@@ -42,7 +45,7 @@ pub enum MainCommands {
 
 pub fn match_command(command: Option<MainCommands>) {
     match command {
-        Some(MainCommands::Bob {}) => bob::run(),
+        Some(MainCommands::Bob {listen}) => bob::main(listen),
         Some(MainCommands::Init { gitless, gitignore }) => init::main(gitless, gitignore),
 
 
