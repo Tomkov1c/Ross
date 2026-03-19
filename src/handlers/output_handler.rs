@@ -63,3 +63,12 @@ pub fn warn(msg: &str) { eprintln!("\x1b[1;33m{msg}\x1b[0m"); }
 pub fn info(msg: &str) { eprintln!("\x1b[1;36m{msg}\x1b[0m"); }
 
 pub fn normal(msg: &str) { println!("{}", msg); }
+
+
+#[macro_export]
+macro_rules! debug {
+    ($($arg:tt)*) => {{
+        #[cfg(debug_assertions)]
+        eprintln!("\x1b[1;35m{}\x1b[0m", format!($($arg)*));
+    }};
+}
