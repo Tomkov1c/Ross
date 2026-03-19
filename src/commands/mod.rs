@@ -3,9 +3,11 @@ pub mod init;
 pub mod config;
 pub mod file;
 
+use std::time::Duration;
+
 use clap::{Parser, Subcommand};
 
-use crate::commands::{config::ConfigCommands, file::FileCommands};
+use crate::{commands::{config::ConfigCommands, file::FileCommands}, handlers::output_handler::{self}};
 
 
 #[derive(Subcommand)]
@@ -56,6 +58,25 @@ pub fn match_command(command: Option<MainCommands>) {
         //
 
 
-        None => { crate::handlers::cli_handler::Cli::parse_from(["", "--help"]); }
+        None => {
+            output_handler::error("msg");
+            output_handler::warn("msg");
+            output_handler::info("msg");
+            output_handler::normal("msg");
+
+            output_handler::init(50, "Processing");
+
+            for i in 0..50 {
+                std::thread::sleep(Duration::from_millis(200));
+                output_handler::increase_position(1);
+                output_handler::print_below_offset(&format!("last step: {i}"));
+
+                if i == 15 {
+                    output_handler::print_above_offset("Checkpoint reached");
+                }
+            }
+
+            output_handler::finish_offset("Done");
+        }
     }
 }
