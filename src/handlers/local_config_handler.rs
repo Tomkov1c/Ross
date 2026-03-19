@@ -19,7 +19,10 @@ pub fn search_env_dir_for_local_config() -> bool {
 pub fn create_local_config(dir: PathBuf) -> Option<PathBuf> {
     if !search_dir_for_local_config(dir.clone()) {
         let ross_dir = dir.join(".ross");
-        fs::create_dir(&ross_dir).expect("");
+        match fs::create_dir(&ross_dir){
+            Ok(_) => crate::debug!("Created .ross dir at {:?}", ross_dir),
+            Err(e) => crate::debug!("Failed to create .ross dir: {e}"),
+        }
 
         #[cfg(target_os = "windows")]
         set_dir_as_hidden_on_windows(&ross_dir);
@@ -48,7 +51,10 @@ pub fn add_dir_to_config_dir(dir: PathBuf, name: String) -> bool {
         if named_dir.exists() {
             false
         } else {
-            fs::create_dir(&named_dir).expect("Failed to create dir in .ross");
+            match fs::create_dir(&named_dir) {
+                Ok(_) => crate::debug!("Added a subdir at {:?}", named_dir),
+                Err(e) => crate::debug!("Failed to create .a sub dir: {e}"),
+            }
             true
         }
     } else {
