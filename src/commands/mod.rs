@@ -3,11 +3,9 @@ pub mod init;
 pub mod config;
 pub mod file;
 
-use std::time::Duration;
-
 use clap::Subcommand;
 
-use crate::{commands::{config::ConfigCommands, file::FileCommands}, handlers::output_handler::{self}};
+use crate::commands::{config::ConfigCommands, file::FileCommands};
 
 
 #[derive(Subcommand)]
