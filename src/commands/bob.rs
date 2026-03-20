@@ -5,6 +5,7 @@ use crate::handlers::output_handler;
 pub fn main(listen: bool) {
     let (quote, link) = match rand::random_range(0..10) {
         0 => ( "Wiggle... wiggle wiggle", "https://youtu.be/VlucWfTUo1A?si=pW9MXse3NcBZzCjA&t=1311" ),
+        1 => ( "Now then, let's give him... let's give him a little friend", "https://youtu.be/vbPdQ0w8ylg?si=1kZR9lvEN4U13s9l&t=647"),
         _ => ("Shake off the excess. *laughs* And just beat the devil out of it. This is where you take out all of your frustrations and hostilities and just have a good time.", "https://youtu.be/VlucWfTUo1A?si=DGVnKjoCq-DUSweD&t=256"
         ),
     };
