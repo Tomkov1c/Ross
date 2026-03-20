@@ -1,7 +1,8 @@
+use clap::Parser;
+use clap::Subcommand;
+
 pub mod global;
 pub mod local;
-
-use clap::{Parser, Subcommand};
 
 #[derive(Subcommand)]
 pub enum ConfigCommands {

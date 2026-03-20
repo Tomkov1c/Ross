@@ -1,9 +1,10 @@
-mod schemes;
-
 use serde::Deserialize;
-use crate::languages::BaseSettings;
 use std::fs;
 use std::path::Path;
+
+use crate::languages::BaseSettings;
+
+mod schemes;
 
 #[derive(Debug, Deserialize)]
 pub struct JavaSettings {

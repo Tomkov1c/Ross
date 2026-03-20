@@ -1,12 +1,12 @@
+use clap::Subcommand;
+
+use crate::commands::config::ConfigCommands;
+use crate::commands::file::FileCommands;
+
 pub mod bob;
 pub mod init;
 pub mod config;
 pub mod file;
-
-use clap::Subcommand;
-
-use crate::commands::{config::ConfigCommands, file::FileCommands};
-
 
 #[derive(Subcommand)]
 pub enum MainCommands {

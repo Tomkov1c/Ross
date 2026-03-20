@@ -1,4 +1,6 @@
-use indicatif::{MultiProgress, ProgressBar, ProgressStyle};
+use indicatif::MultiProgress;
+use indicatif::ProgressBar;
+use indicatif::ProgressStyle;
 use std::sync::OnceLock;
 use std::time::Duration;
 

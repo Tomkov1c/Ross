@@ -1,6 +1,7 @@
-pub mod path;
+use clap::Parser;
+use clap::Subcommand;
 
-use clap::{Parser, Subcommand};
+pub mod path;
 
 #[derive(Subcommand)]
 pub enum GlobalCommands {

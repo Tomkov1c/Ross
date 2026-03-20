@@ -1,10 +1,10 @@
+use std::fs;
+use std::path::PathBuf;
+
 use crate::CURRENT_DIR;
 
 #[cfg(target_os = "windows")]
 use crate::handlers::dir_handler::set_dir_as_hidden_on_windows;
-
-use std::fs;
-use std::path::PathBuf;
 
 pub fn search_dir_for_local_config(path: PathBuf) -> bool {
     let ross_dir = path.join(".ross");

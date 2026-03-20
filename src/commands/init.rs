@@ -1,4 +1,7 @@
-use crate::{CURRENT_DIR, handlers::{file_handler, local_config_handler, output_handler}};
+use crate::CURRENT_DIR;
+use crate::handlers::file_handler;
+use crate::handlers::local_config_handler;
+use crate::handlers::output_handler;
 
 pub fn main(gitless: bool, gitignore: bool) {
     let success = local_config_handler::create_local_config_at_env();

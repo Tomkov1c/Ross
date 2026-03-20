@@ -1,5 +1,8 @@
-use std::fs::{self, OpenOptions};
-use std::io::{self, BufRead, Write};
+use std::fs;
+use std::fs::OpenOptions;
+use std::io;
+use std::io::BufRead;
+use std::io::Write;
 use std::path::PathBuf;
 
 pub fn add_to_gitignore(gitignore_path: PathBuf, dir: &str) -> io::Result<()> {

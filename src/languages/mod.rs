@@ -1,9 +1,9 @@
-mod java;
-
 use serde::Deserialize;
 use serde::de::DeserializeOwned;
 use std::fs;
 use std::path::Path;
+
+mod java;
 
 pub enum SupportedLanguages {
     Java,
