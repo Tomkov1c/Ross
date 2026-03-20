@@ -16,7 +16,7 @@ fn status() -> &'static ProgressBar {
     STATUS.get().expect("not initialized — call init() first")
 }
 
-pub fn init(total: u64, label: &str) {
+pub fn bar_start(total: u64, label: &str) {
     let multi = MultiProgress::new();
 
     let pb = multi.add(ProgressBar::new(total));
@@ -47,12 +47,12 @@ pub fn print_above_offset(msg: &str) { print_above(&format!("  {msg}")); }
 
 pub fn print_below_offset(msg: &str) { print_below(&format!("  {msg}")); }
 
-pub fn finish(msg: &str) {
+pub fn bar_finish(msg: &str) {
     bar().finish();
     status().finish_with_message(msg.to_string());
 }
 
-pub fn finish_offset(msg: &str) { finish(&format!("  {msg}")); }
+pub fn finish_offset(msg: &str) { bar_finish(&format!("  {msg}")); }
 
 // Other output
 

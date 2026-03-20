@@ -5,7 +5,7 @@ pub mod file;
 
 use std::time::Duration;
 
-use clap::{Parser, Subcommand};
+use clap::Subcommand;
 
 use crate::{commands::{config::ConfigCommands, file::FileCommands}, handlers::output_handler::{self}};
 
@@ -64,7 +64,7 @@ pub fn match_command(command: Option<MainCommands>) {
             output_handler::info("msg");
             output_handler::normal("msg");
 
-            output_handler::init(50, "Processing");
+            output_handler::bar_start(50, "Processing");
 
             for i in 0..50 {
                 std::thread::sleep(Duration::from_millis(200));
