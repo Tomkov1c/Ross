@@ -9,7 +9,7 @@ use clap::Parser;
 
 use crate::handlers::cli_handler::Cli;
 
-pub static CURRENT_DIR: LazyLock<PathBuf> = LazyLock::new(|| { env::current_dir().expect("Failed to get current directory")});
+pub static CURRENT_DIR: LazyLock<PathBuf> = LazyLock::new(|| { env::current_dir().unwrap_or_else(|e| { debug!("Failed to get current directory"); std::process::exit(1);})});
 
 fn main() {
     cli_match();
