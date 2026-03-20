@@ -1,5 +1,7 @@
 use std::env;
 
+use crate::handlers::output_handler;
+
 pub fn main(listen: bool) {
     let (quote, link) = match rand::random_range(0..10) {
         0 => ( "Wiggle... wiggle wiggle", "https://youtu.be/VlucWfTUo1A?si=pW9MXse3NcBZzCjA&t=1311" ),
@@ -9,7 +11,7 @@ pub fn main(listen: bool) {
 
     if listen {
         if let Err(e) = open::that(link) {
-            eprintln!("Failed to open link: {}", e);
+            output_handler::error(&format!("Failed to open link: {}", e));
         }
     }else {
         print_to_terminal(quote, link);
@@ -21,11 +23,11 @@ pub fn main(listen: bool) {
 fn print_to_terminal(quote: &str, link: &str) {
     let supports_links = env::var("TERM_PROGRAM").unwrap_or_default() != "Apple_Terminal";
 
+    output_handler::normal(&format!("\"{}\"", quote));
+
     if supports_links {
-        println!("̌\"{}\"", quote);
-        println!("  -- Bob Ross \x1b]8;;{}\x1b\\[Click to listen]\x1b]8;;\x1b\\", link);
+        output_handler::normal(&format!("  -- Bob Ross \x1b]8;;{}\x1b\\[Click to listen]\x1b]8;;\x1b\\", link));
     } else {
-        println!("\"{}\"", quote);
-        println!("  -- Bob Ross [Listen here: {}]", link);
+        output_handler::normal(&format!("  -- Bob Ross [Listen here: {}]", link));
     }
 }

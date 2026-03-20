@@ -1,4 +1,4 @@
-use crate::{CURRENT_DIR, handlers::{file_handler, local_config_handler}};
+use crate::{CURRENT_DIR, handlers::{file_handler, local_config_handler, output_handler}};
 
 pub fn main(gitless: bool, gitignore: bool) {
     let success = local_config_handler::create_local_config_at_env();
@@ -12,8 +12,8 @@ pub fn main(gitless: bool, gitignore: bool) {
     }
 
     if success == None {
-        println!("Could not get current directory")
+        output_handler::error("Could not get current directory")
     }else {
-        println!("Initialized empty Ross project config directory at: {}", success.unwrap().parent().unwrap().display().to_string());
+        output_handler::error(&format!("Initialized empty Ross project config directory at: {}", success.unwrap().parent().unwrap().display().to_string()));
     }
 }

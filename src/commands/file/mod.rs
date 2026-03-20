@@ -1,5 +1,7 @@
 use clap::Subcommand;
 
+use crate::handlers::output_handler;
+
 #[derive(Subcommand)]
 pub enum FileCommands {
 
@@ -15,12 +17,11 @@ pub fn match_command(files: &[String], subcommand: Option<FileCommands>) {
 }
 
 pub fn default(files: &[String]) {
-    if files.is_empty() {
-        println!("No files provided.");
-        return;
-    }
+    output_handler::bar_start(files.len() as u64, "Processing files");
 
     for file in files {
-        println!("Processing file: {}", file);
+        output_handler::increase_position(1);
     }
+
+    output_handler::bar_finish("Done");
 }
