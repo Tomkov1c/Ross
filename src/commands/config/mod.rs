@@ -1,29 +1,22 @@
 use clap::Parser;
 use clap::Subcommand;
 
-pub mod global;
-pub mod local;
+pub mod path;
 
 #[derive(Subcommand)]
 pub enum ConfigCommands {
-
-    #[command(about = "Change settings for your project config")]
-    Local {
-        #[command(subcommand)]
-        subcommand: Option<local::LocalCommands>,
-    },
-
-    #[command(about = "Change settings for your machine's config")]
-    Global {
-        #[command(subcommand)]
-        subcommand: Option<global::GlobalCommands>,
+    #[command(about = "Return the path of the config dir")]
+    Path {
+        #[arg(short, long, help = "Apply command to the machine config", conflicts_with = "local")]
+        global: bool,
+        #[arg(short, long, help = "Apply command to the local config", conflicts_with = "global")]
+        local: bool,
     },
 }
 
 pub fn match_command(subcommand: Option<ConfigCommands>) {
     match subcommand {
-        Some(ConfigCommands::Global { subcommand }) => global::match_command(subcommand),
-        Some(ConfigCommands::Local { subcommand })  => local::match_command(subcommand),
+        Some(ConfigCommands::Path { global, local }) => path::main(global, local),
 
         None => { crate::handlers::cli_handler::Cli::parse_from(["", "config", "--help"]); }
     }
