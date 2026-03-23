@@ -25,7 +25,7 @@ pub enum MainCommands {
         gitignore: bool,
     },
 
-    #[command(about = "Run code formatting on the attached file(s)")]
+    #[command(about = "Run code formatting")]
     Tidy {
         #[arg(index = 1)]
         extension: Option<String>,
