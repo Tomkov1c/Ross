@@ -1,12 +1,11 @@
 use clap::Subcommand;
 
 use crate::commands::config::ConfigCommands;
-use crate::commands::file::FileCommands;
 
 pub mod bob;
 pub mod init;
 pub mod config;
-pub mod file;
+pub mod tidy;
 
 #[derive(Subcommand)]
 pub enum MainCommands {
@@ -27,12 +26,18 @@ pub enum MainCommands {
     },
 
     #[command(about = "Run code formatting on the attached file(s)")]
-    File {
-            #[arg(required = true)]
-            files: Vec<String>,
+    Tidy {
+        #[arg(index = 1)]
+        extension: Option<String>,
 
-            #[command(subcommand)]
-            subcommand: Option<FileCommands>,
+        #[arg(index = 2, requires = "extension")]
+        scheme: Option<String>,
+
+        #[arg(long, short, num_args = 1.., conflicts_with = "recursive")]
+        files: Vec<String>,
+
+        #[arg(long, short, conflicts_with = "files")]
+        recursive: bool,
     },
 
     #[command(about = "Manage Ross configuration")]
@@ -48,11 +53,11 @@ pub fn match_command(command: Option<MainCommands>) {
         Some(MainCommands::Bob {listen}) => bob::main(listen),
         Some(MainCommands::Init { gitless, gitignore }) => init::main(gitless, gitignore),
 
+        Some(MainCommands::Tidy { extension, scheme, files, recursive }) => tidy::main(),
+
 
         // Branched
         Some(MainCommands::Config { subcommand }) => config::match_command(subcommand),
-
-        Some(MainCommands::File { files, subcommand }) => file::match_command(&files, subcommand),
         //
 
 
