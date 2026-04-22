@@ -66,6 +66,8 @@ pub fn info(msg: &str) { eprintln!("\x1b[1;36m{msg}\x1b[0m"); }
 
 pub fn normal(msg: &str) { println!("{}", msg); }
 
+pub fn new_line() { println!(""); }
+
 
 #[macro_export]
 macro_rules! debug {

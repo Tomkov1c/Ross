@@ -24,6 +24,7 @@ pub fn main(listen: bool) {
 fn print_to_terminal(quote: &str, link: &str) {
     let supports_links = env::var("TERM_PROGRAM").unwrap_or_default() != "Apple_Terminal";
 
+    output_handler::new_line();
     output_handler::normal(&format!("\"{}\"", quote));
 
     if supports_links {
@@ -31,4 +32,5 @@ fn print_to_terminal(quote: &str, link: &str) {
     } else {
         output_handler::normal(&format!("  -- Bob Ross [Listen here: {}]", link));
     }
+    output_handler::new_line();
 }
